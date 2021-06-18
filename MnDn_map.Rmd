@@ -1,0 +1,72 @@
+---
+title: "Mn Dn | Dist. Map"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(raster)
+library(leaflet)
+library(htmlwidgets)
+library(htmltools)
+library(wesanderson)
+
+#Load Rasters
+mn <- raster("../MnDn_ENM/Data/Pred/predictions/Mn/Mn_SDM_ME_1km_p10.tif")
+dn <- raster("../MnDn_ENM/Data/Pred/predictions/Dn/Dn_SDM_ME_1km_p10.tif")
+
+#Tag with CRS
+crs(mn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+crs(dn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+
+#Color palettes 
+pal <- as.character(wes_palette("Zissou1"))
+pal2 <- as.character(wes_palette("FantasticFox1")[c(3,2,4,1,5)])
+
+pal.mn <- colorNumeric(palette = pal, values(mn),
+                    na.color = "transparent")
+
+pal.dn <- colorNumeric(palette = pal, values(dn),
+                    na.color = "transparent")
+```
+
+
+```{r, echo=FALSE, warning=FALSE}
+leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
+  addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
+  addRasterImage(mn, colors = pal.mn, opacity = 0.50, group = "M. nuda") %>%
+  addRasterImage(dn, colors = pal.dn, opacity = 0.50, group = "D. novaeangliae") %>% 
+  addLegend(pal = pal.mn, values = values(mn),
+            title = "Suitability",
+            opacity = 1,
+            group = "M. nuda") %>% 
+  addLegend(pal = pal.dn, values = values(dn),
+            title = "Suitability",
+            opacity = 1,
+            group = "D. novaeangliae") %>%
+  setMaxBounds( lng1 = -80
+                , lat1 = 40
+                , lng2 = -70
+                , lat2 = 46) %>% 
+  fitBounds( lng1 = -75
+                , lat1 = 40
+                , lng2 = -70
+                , lat2 = 46) %>% 
+  #addControl(title, position = "topleft", className="map-title") %>% 
+  addMiniMap(
+    tiles = providers$CartoDB.Positron,
+    toggleDisplay = TRUE,
+    zoomAnimation = TRUE,
+    aimingRectOptions = list(weight = 2.5, clickable = TRUE),
+    minimized = TRUE) %>% 
+  addLayersControl(
+    baseGroups = c("Street", "Satellite", "Topo"),
+    overlayGroups = c("M. nuda", "D. novaeangliae"),
+    options = layersControlOptions(collapsed = FALSE),
+    position = "bottomleft")
+```
