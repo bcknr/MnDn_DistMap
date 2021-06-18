@@ -1,6 +1,6 @@
 ---
 title: "Mn Dn | Dist. Map"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
