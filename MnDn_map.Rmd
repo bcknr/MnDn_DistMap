@@ -1,6 +1,6 @@
 ---
 title: "Mn Dn | Dist. Map"
-output: github_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -35,7 +35,7 @@ pal.dn <- colorNumeric(palette = pal, values(dn),
 
 
 ```{r, echo=FALSE, warning=FALSE}
-leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
+map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
   addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
