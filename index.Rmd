@@ -9,22 +9,66 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r, echo=FALSE, message=FALSE}
+library(raster)
+library(leaflet)
+library(htmlwidgets)
+library(htmltools)
+library(wesanderson)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Load Rasters
+mn <- raster("../MnDn_ENM/Data/Pred/predictions/Mn/Mn_SDM_ME_1km_p10.tif")
+dn <- raster("../MnDn_ENM/Data/Pred/predictions/Dn/Dn_SDM_ME_1km_p10.tif")
 
-```{r cars}
-summary(cars)
+#Tag with CRS
+crs(mn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+crs(dn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+
+#Color palettes 
+pal <- as.character(wes_palette("Zissou1"))
+pal2 <- as.character(wes_palette("FantasticFox1")[c(3,2,4,1,5)])
+
+pal.mn <- colorNumeric(palette = pal, values(mn),
+                    na.color = "transparent")
+
+pal.dn <- colorNumeric(palette = pal, values(dn),
+                    na.color = "transparent")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, echo=FALSE, warning=FALSE}
+map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
+  addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
+  addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
+  addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
+  addRasterImage(mn, colors = pal.mn, opacity = 0.50, group = "M. nuda") %>%
+  addRasterImage(dn, colors = pal.dn, opacity = 0.50, group = "D. novaeangliae") %>% 
+  addLegend(pal = pal.mn, values = values(mn),
+            title = "Suitability",
+            opacity = 1,
+            group = "M. nuda") %>% 
+  addLegend(pal = pal.dn, values = values(dn),
+            title = "Suitability",
+            opacity = 1,
+            group = "D. novaeangliae") %>%
+  setMaxBounds( lng1 = -80
+                , lat1 = 40
+                , lng2 = -70
+                , lat2 = 46) %>% 
+  fitBounds( lng1 = -75
+                , lat1 = 40
+                , lng2 = -70
+                , lat2 = 46) %>% 
+  #addControl(title, position = "topleft", className="map-title") %>% 
+  addMiniMap(
+    tiles = providers$CartoDB.Positron,
+    toggleDisplay = TRUE,
+    zoomAnimation = TRUE,
+    aimingRectOptions = list(weight = 2.5, clickable = TRUE),
+    minimized = TRUE) %>% 
+  addLayersControl(
+    baseGroups = c("Street", "Satellite", "Topo"),
+    overlayGroups = c("M. nuda", "D. novaeangliae"),
+    options = layersControlOptions(collapsed = FALSE),
+    position = "bottomleft")
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
