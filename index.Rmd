@@ -66,14 +66,13 @@ map <- leaflet(options = leafletOptions(minZoom = 7.3)) %>% addTiles() %>%
     tiles = providers$CartoDB.Positron,
     toggleDisplay = TRUE,
     zoomAnimation = TRUE,
-    aimingRectOptions = list(weight = 2.5, clickable = TRUE),
-    minimized = TRUE) %>% 
+    aimingRectOptions = list(weight = 2.5, clickable = TRUE)) %>% 
   addLayersControl(
     baseGroups = c("Street", "Satellite", "Topo"),
     overlayGroups = c("M. nuda", "D. novaeangliae"),
     options = layersControlOptions(collapsed = FALSE),
     position = "bottomleft") %>% 
-  addControlGPS(options = gpsOptions(position = "bottomright", activate = TRUE, 
+  addControlGPS(options = gpsOptions(position = "bottomleft", activate = TRUE, 
                                      autoCenter = TRUE, maxZoom = 10, setView = TRUE))
   
 
