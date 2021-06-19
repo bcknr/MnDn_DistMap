@@ -1,14 +1,11 @@
 ---
 title: "M. nuda | D. novaeangliae SDM"
-author: "Mark Buckner"
-date: "6/18/2021"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 
 ```{r, echo=FALSE, message=FALSE}
 library(raster)
@@ -71,4 +68,6 @@ map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
     overlayGroups = c("M. nuda", "D. novaeangliae"),
     options = layersControlOptions(collapsed = FALSE),
     position = "bottomleft")
+
+map
 ```

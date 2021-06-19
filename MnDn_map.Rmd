@@ -34,7 +34,8 @@ pal.dn <- colorNumeric(palette = pal, values(dn),
 ```
 
 
-```{r, echo=FALSE, warning=FALSE}
+```{r}
+
 map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
   addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
