@@ -37,8 +37,8 @@ Species Distribution Models (SDMs) for *Macropis nuda* and *Dufourea novaeanglia
 
 Approx. 1km resolution
 
-```{r, echo=FALSE, warning=FALSE}
-map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
+```{r, echo=FALSE, warning=FALSE, out.width= "120%", fig.height= 9}
+map <- leaflet(options = leafletOptions(minZoom = 7.3)) %>% addTiles() %>%
   addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
