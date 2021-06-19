@@ -1,5 +1,5 @@
 ---
-title: "M. nuda | D. novaeangliae SDM"
+title: "Macropis nuda & Dufourea novaeangliae SDM"
 output: html_document
 ---
 
@@ -32,6 +32,10 @@ pal.mn <- colorNumeric(palette = pal, values(mn),
 pal.dn <- colorNumeric(palette = pal, values(dn),
                     na.color = "transparent")
 ```
+
+Species Distribution Models (SDMs) for *Macropis nuda* and *Dufourea novaeangliae* created with MaxEnt using a 10th percentile threshold. All levels of suitability correspond to a prediction of species presence (Note: the presence threshold differs between each species). Red grid cells are predicted to be the most suitable given the available occurrence data and predictors used. 
+
+Approx. 1km resolution
 
 ```{r, echo=FALSE, warning=FALSE}
 map <- leaflet(options = leafletOptions(minZoom = 6.5)) %>% addTiles() %>%
