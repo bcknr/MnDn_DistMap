@@ -43,8 +43,8 @@ map <- leaflet(options = leafletOptions(minZoom = 7.3)) %>% addTiles() %>%
   addProviderTiles(providers$OpenStreetMap, group = "Street") %>% 
   addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
-  addRasterImage(mn, colors = pal.mn, opacity = 0.7, group = "M. nuda") %>%
-  addRasterImage(dn, colors = pal.dn, opacity = 0.7, group = "D. novaeangliae") %>% 
+  addRasterImage(mn, colors = pal.mn, opacity = 0.6, group = "M. nuda") %>%
+  addRasterImage(dn, colors = pal.dn, opacity = 0.6, group = "D. novaeangliae") %>% 
   addLegend(pal = pal.mn, values = values(mn),
             title = "Suitability",
             opacity = 1,
