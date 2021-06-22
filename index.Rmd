@@ -13,15 +13,22 @@ library(leaflet)
 library(leaflet.extras)
 library(htmlwidgets)
 library(htmltools)
+library(tidyverse)
 library(wesanderson)
+library(rgdal)
 
 #Load Rasters
 mn <- raster("../MnDn_ENM/Data/Pred/predictions/Mn/Mn_SDM_ME_1km_p10.tif")
 dn <- raster("../MnDn_ENM/Data/Pred/predictions/Dn/Dn_SDM_ME_1km_p10.tif")
 
+#Load previous obs
+mn.p <- read_csv("../MnDn_ENM/Data/Obs/Mn_NE70.csv")
+dn.p <- read_csv("../MnDn_ENM/Data/Obs/Dn_NE70.csv")
+
 #Tag with CRS
-crs(mn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
-crs(dn) <- sp::CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+mn.p <- sp::SpatialPoints(mn.p, CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
+dn.p <- sp::SpatialPoints(dn.p, CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"))
+
 
 #Color palettes 
 pal <- as.character(wes_palette("Zissou1"))
@@ -45,6 +52,8 @@ map <- leaflet(options = leafletOptions(minZoom = 7.3)) %>% addTiles() %>%
   addProviderTiles(providers$Esri.WorldTopoMap, group = "Topo") %>% 
   addRasterImage(mn, colors = pal.mn, opacity = 0.6, group = "M. nuda") %>%
   addRasterImage(dn, colors = pal.dn, opacity = 0.6, group = "D. novaeangliae") %>% 
+  addCircleMarkers(mn.p@coords[,2], mn.p@coords[,1], group = "M. nuda", radius = 0.25, color = "#000000") %>% 
+  addCircleMarkers(dn.p@coords[,2], dn.p@coords[,1], group = "D. novaeangliae", radius = 0.25, color = "#470161") %>% 
   addLegend(pal = pal.mn, values = values(mn),
             title = "Suitability",
             opacity = 1,
