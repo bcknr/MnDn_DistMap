@@ -1,5 +1,7 @@
 ---
-title: "Macropis nuda & Dufourea novaeangliae SDM"
+title: "Macropis nuda & Dufourea novaeangliae SDMs"
+author: "Mark Buckner"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
@@ -41,7 +43,15 @@ pal.dn <- colorNumeric(palette = pal, values(dn),
                     na.color = "transparent")
 ```
 
-Species Distribution Models (SDMs) for *Macropis nuda* and *Dufourea novaeangliae* created with MaxEnt using a 10th percentile threshold. All levels of suitability correspond to a prediction of species presence (Note: the presence threshold differs between each species). Red grid cells are predicted to be the most suitable given the available occurrence data and predictors used. 
+Species Distribution Models (SDMs) for *Macropis nuda* and *Dufourea novaeangliae* created with MaxEnt using a 10th percentile threshold. 
+
+All levels of suitability correspond to a prediction of species presence (Note: the presence threshold differs slightly between each species). Red grid cells are predicted to be the most suitable given the available occurrence data and predictors used. Lower suitability areas (blue) are predicted as potential presence sites based on the threshold used. 
+
+The models are based on pretty small sample sizes, and they have a fairly coarse resolution, so here are a couple of potentially helpful tips:
+
+ - Macropis specialize on Lysimachia ciliata which can be found in/near wetlands, shorelines, and sunnier spots of damp woods.  They also might be found nectaring on Apocynum.
+ - Durfourea specializes on Pontederia cordata, which is an aquatic plant found near shorelines.
+
 
 Approx. 1km resolution
 
@@ -87,3 +97,78 @@ map <- leaflet(options = leafletOptions(minZoom = 7.3)) %>% addTiles() %>%
 
 map
 ```
+
+
+<details>
+  <summary>Occurrence data references</summary>
+
+``` {r, eval = FALSE}
+Apocynum androsaemifolium:
+  
+GBIF.org (17 June 2021) GBIF Occurrence Download [](https://doi.org/10.15468/dl.7ym9vn)
+
+
+
+Dufourae novaeangliae:
+  
+Dufourae novaeanglie Occurrences published by BISON, A.J. Cook Arthropod Research Collection, Archbold Biological Station, Berkeley Natural History Museums, BISON, European Molecular Biology Laboratory, Illinois Natural History Survey, iNaturalist.org, Museum of Comparative Zoology, Harvard University, Universidade de São Paulo, University of Guelph, University of Kansas Biodiversity Institute, University of New Hamsphire Collection of Insects and other Arthropods, USDA- ARS Bee Biology and Systematics Laboratory, and Vermont Center for Ecostudies (Accessed through Biodiversity Information Serving Our Nation (BISON), https://bison.usgs.gov, 2021-05-28)
+
+GBIF.org (28 May 2021) GBIF Occurrence Download  https://doi.org/10.15468/dl.eybtdf
+
+Hardy, Spencer, Leif L. Richardson, Michael Veit, Joan Milam, Mark Ferguson, Kent P. McFarland. 2021. "Species Account: Pickerelweed Shortface (Dufourea novaeangliae)" Vermont Atlas of Life Wild Bee Survey. Vermont Center for Ecostudies, 24 March 2021, val.vtecostudies.org/projects/vtbees/dufourea-novaeangliae/
+
+Jacobson, Molly personal comm.
+
+Neff, Jack personal comm.
+
+Roswell, Michael; Dushoff, Jonathan; Winfree, Rachael (2020), Data from: Male and female bees show large differences in floral preference, Dryad, Dataset, https://doi.org/10.5061/dryad.c3rr6q1
+
+SCAN. Dufourea novaeangliae. 2019. http//:scan-bugs.org/portal/index.php. Accessed on 28 May 2021.
+
+Wood, TJ personal comm.
+
+Zarrillo, Tracy and Kimberly Stoner personal comm.
+
+
+
+Lysimachia ciliata:
+
+GBIF.org (22 April 2021) GBIF Occurrence Download [](https://doi.org/10.15468/dl.m3wjf4)
+
+
+
+Macropis nuda:
+
+AMNH Arthropod Easy Capture Database. Release 2.9.0. American Museum of Natural History. 2003- [accessed 2021 Jan 18]. https://research.amnh.org/pbi/locality/
+  
+Du Clos, Brianne personal comm.
+
+GBIF.org (24 March 2021) GBIF Occurrence Download https://doi.org/10.15468/dl.3s5q5y
+
+Hardy, Spencer, Leif L. Richardson, Michael Veit, Joan Milam, Mark Ferguson, Kent P. McFarland. 2021. "Species Account: Loosestrife Bees (Genus Macropis)" Vermont Atlas of Life Wild Bee Survey. Vermont Center for Ecostudies, 24 March 2021, val.vtecostudies.org/projects/vtbees/macropis/.
+
+MacInnis, Gail personal comm.
+
+Macropis nuda Occurrences published by BISON, European Molecular Biology Laboratory, Field Museum, Illinois Natural History Survey, iNaturalist.org, Lund Museum of Zoology, Museum of Comparative Zoology, Harvard University, South African National Biodiversity Institute, University of Kansas Biodiversity Institute, USDA- ARS Bee Biology and Systematics Laboratory, Yale University Peabody Museum, and York University (Accessed through Biodiversity Information Serving Our Nation (BISON), https://bison.usgs.gov, 2021-03-24)
+
+SCAN. Macropis nuda. (2019). Retrieved from http//:scan-bugs.org/portal/index.php. Accessed on 24 Mar 2021.
+
+Roswell, Michael personal comm.
+
+Veit, Michael personal comm.
+
+Wood, T. J., Killewald, M. F., Graham, K. K., Gibbs, J., & Isaacs, R. (2019). Epeoloides pilosulus (Cresson) (hymenoptera: Apidae) rediscovered in michigan, with notes on the distribution and status of its macropis hosts. Great Lakes Entomologist, 52(1–2).
+
+
+
+Pontedaria cordata:
+  
+GBIF.org (25 May 2021) GBIF Occurrence Download  https://doi.org/10.15468/dl.ur45vu
+
+```
+
+  </details>
+
+
+
+
