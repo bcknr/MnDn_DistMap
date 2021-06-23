@@ -45,13 +45,10 @@ pal.dn <- colorNumeric(palette = pal, values(dn),
 
 Species Distribution Models (SDMs) for *Macropis nuda* and *Dufourea novaeangliae* created with MaxEnt using a 10th percentile threshold. 
 
-All levels of suitability correspond to a prediction of species presence (Note: the presence threshold differs slightly between each species). Red grid cells are predicted to be the most suitable given the available occurrence data and predictors used. Lower suitability areas (blue) are predicted as potential presence sites based on the threshold used. 
+All levels of suitability correspond to a prediction of species presence (Note: the presence threshold differs slightly between each species). Red grid cells are predicted to be the most suitable given the available occurrence data and predictors used. Lower suitability areas (blue) are predicted to be presence sites based on the threshold used. 
 
-The models are based on pretty small sample sizes, and they have a fairly coarse resolution, so here are a couple of potentially helpful tips:
-
- - Macropis specialize on Lysimachia ciliata which can be found in/near wetlands, shorelines, and sunnier spots of damp woods.  They also might be found nectaring on Apocynum.
+ - Macropis specialize on Lysimachia ciliata which can be found in/near wetlands, shorelines, and sunnier spots of damp woods.  They also nectar on Apocynum.
  - Durfourea specializes on Pontederia cordata, which is an aquatic plant found near shorelines.
-
 
 Approx. 1km resolution
 
